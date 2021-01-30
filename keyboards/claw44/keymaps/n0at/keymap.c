@@ -32,21 +32,27 @@ enum {
 // タップダンス用のenum
 enum {
     CT_CLN,
+    MS_BTN,
+    MS_ACL
 };
 
 #define KC_ KC_TRNS
 #define KC_RST RESET
 #define KC_L_SPC LT(_LOWER, KC_SPC)  // lower
 #define KC_R_ENT LT(_RAISE, KC_ENT)  // raise
-#define KC_S_ON LSFT_T(KC_HENK)     // cmd or win
-#define KC_S_OFF LSFT_T(KC_MHEN)     // cmd or win
-#define KC_C_OFF LCTL_T(KC_MHEN)     // cmd or win
+#define KC_S_JA LSFT_T(KC_F23)     // shift
+#define KC_C_EN LCTL_T(KC_F24)     // ctrl
+#define KC_C_JA LCTL_T(KC_F23)     // shift
+#define KC_S_EN LSFT_T(KC_F24)     // ctrl
 #define KC_G_JA LGUI_T(KC_LANG1)     // cmd or win
 #define KC_G_EN LGUI_T(KC_LANG2)     // cmd or win
 #define KC_C_BS LCTL_T(KC_BSPC)      // ctrl
 #define KC_A_DEL ALT_T(KC_DEL)       // alt
-#define KC_G_DEL LGUI_T(KC_DEL)       // alt
-#define KC_TDCLN TD(CT_CLN)       // alt
+#define KC_G_DEL LGUI_T(KC_DEL)      // alt
+#define KC_TDCLN TD(CT_CLN)          // tap dance
+#define KC_MSBTN TD(MS_BTN)          // tap dance
+#define KC_MSACL TD(MS_ACL)          // tap dance
+#define KC_PREF LCTL(KC_W)          // tap dance
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT( \
@@ -57,40 +63,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|--------+--------+---------+--------+---------+--------|   |--------+---------+--------+---------+--------+--------|
         KC_LSFT, KC_Z   , KC_X    , KC_C   , KC_V    , KC_B   ,     KC_N   , KC_M    , KC_COMM, KC_DOT  , KC_SLSH, KC_RSFT,
     //`--------+--------+---------+--------+---------+--------/   \--------+---------+--------+---------+--------+--------'
-                          KC_A_DEL, KC_S_ON, KC_L_SPC, KC_C_BS,     KC_C_BS, KC_R_ENT, KC_C_OFF, KC_G_DEL
+                          KC_A_DEL, KC_S_JA, KC_L_SPC, KC_DEL ,     KC_BSPC, KC_R_ENT, KC_C_EN, KC_G_DEL
     //                 `----------+--------+---------+--------'   `--------+---------+--------+---------'
     ),
 
     [_RAISE] = LAYOUT( \
     //,--------+--------+--------+--------+--------+--------.   ,--------+--------+--------+--------+--------+--------.
-        _______, KC_BSLS, KC_PIPE, KC_PLUS, KC_EQL,  KC_GRV,      KC_TILD, KC_EQL , KC_PLUS, KC_ASTR, KC_PERC, KC_MINS,
+        _______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,     KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, KC_BTN2,
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-        KC_LBRC, KC_EXLM, KC_AT  , KC_HASH, KC_DLR,  KC_PERC,     KC_LEFT, KC_DOWN,  KC_UP , KC_RGHT, KC_GRV , KC_RBRC,
+        _______, KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 ,     KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_GRV , KC_RBRC,
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-        _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_LCBR,     KC_RCBR, KC_RPRN, _______, _______, _______, _______,
+        _______, KC_F11, KC_F12  , _______, _______, _______,     _______, KC_HOME, KC_END,  KC_PGUP, KC_PGDN, RGB_TOG,
     //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
-                          KC_LALT, _______, _______, RGB_TOG,     RGB_MOD, _______, _______, KC_LGUI
+                          KC_LALT, _______, _______, KC_PREF,     KC_PREF, _______, _______, KC_LGUI
     //                  `--------+--------+--------+--------'   `--------+--------+--------+--------'
-    // //,--------+--------+--------+--------+--------+--------.   ,--------+--------+--------+--------+--------+--------.
-    //     _______, KC_BSLS, KC_CIRC, KC_EXLM, KC_AMPR, KC_PIPE,     KC_AT  , KC_EQL , KC_PLUS, KC_ASTR, KC_PERC, KC_MINS,
-    // //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-    //     KC_LPRN, KC_HASH, KC_DLR , KC_DQT , KC_QUOT, KC_TILD,     KC_LEFT, KC_DOWN,  KC_UP , KC_RGHT, KC_GRV , KC_RPRN,
-    // //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-    //     _______, _______, _______, _______, KC_LCBR, KC_LBRC,     KC_RBRC, KC_RCBR, _______, _______, _______, _______,
-    // //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
-    //                       KC_LALT, _______, _______, RGB_TOG,     RGB_MOD, _______, _______, KC_LGUI
-    // //                  `--------+--------+--------+--------'   `--------+--------+--------+--------'
     ),
 
     [_LOWER] = LAYOUT( \
     //,--------+--------+--------+--------+--------+--------.   ,--------+--------+--------+--------+--------+--------.
-        KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,     _______, KC_EQL , KC_PLUS, KC_ASTR, KC_PERC, KC_MINS,
+        _______, KC_GRV , KC_TILD, KC_LPRN, KC_LCBR, KC_LBRC,     KC_RBRC, KC_RCBR, KC_RPRN, KC_EQL , KC_PLUS, KC_PIPE,
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-        _______, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,     KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , _______,
+        KC_BSLS, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,     KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS,
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-        KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,     _______, _______, KC_COMM, KC_DOT , KC_SLSH, _______,
+        _______, KC_EXLM, KC_AT  , KC_HASH, KC_DLR,  KC_PERC,     KC_CIRC, KC_AMPR, KC_ASTR, _______, _______, RGB_MOD,
     //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
-                          KC_LALT, _______, _______, RGB_TOG,     RGB_MOD, _______, _______, KC_LGUI
+                          KC_LALT, _______, _______, KC_PREF,     KC_PREF, _______, _______, KC_LGUI
     //                  `--------+--------+--------+--------'   `--------+--------+--------+--------'
     ),
 };
@@ -111,9 +108,43 @@ void dance_cln_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void dance_ms_finished(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code16(KC_BTN1);
+    } else {
+        register_code(KC_BTN2);
+    }
+}
+
+void dance_ms_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code16(KC_BTN1);
+    } else {
+        register_code(KC_BTN2);
+    }
+}
+
+void dance_acl_finished(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code16(KC_ACL1);
+    } else {
+        register_code(KC_ACL2);
+    }
+}
+
+void dance_acl_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code16(KC_ACL1);
+    } else {
+        register_code(KC_ACL2);
+    }
+}
+
 // タップダンスキーを機能に関連付けます
 qk_tap_dance_action_t tap_dance_actions[] = {
     [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
+    [MS_BTN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ms_finished, dance_ms_reset),
+    [MS_ACL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_acl_finished, dance_acl_reset),
 };
 
 #ifdef OLED_DRIVER_ENABLE
