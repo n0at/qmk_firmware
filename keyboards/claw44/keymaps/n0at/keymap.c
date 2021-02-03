@@ -42,6 +42,7 @@ enum {
 #define KC_R_ENT LT(_RAISE, KC_ENT)  // raise
 #define KC_S_JA LSFT_T(KC_F23)     // shift
 #define KC_C_EN LCTL_T(KC_F24)     // ctrl
+#define KC_L_EN LT(_LOWER, KC_F24) // ctrl
 #define KC_C_JA LCTL_T(KC_F23)     // shift
 #define KC_S_EN LSFT_T(KC_F24)     // ctrl
 #define KC_G_JA LGUI_T(KC_LANG1)     // cmd or win
@@ -52,18 +53,21 @@ enum {
 #define KC_TDCLN TD(CT_CLN)          // tap dance
 #define KC_MSBTN TD(MS_BTN)          // tap dance
 #define KC_MSACL TD(MS_ACL)          // tap dance
-#define KC_PREF LCTL(KC_W)          // tap dance
+#define KC_PREF LCTL(KC_W)          // ctrl w
+#define KC_C_TAB LCTL_T(KC_TAB)     // ctrl
+#define KC_C_SPC LCTL_T(KC_SPC)      // ctrl
+#define KC_S_SPC LSFT_T(KC_SPC)      // ctrl
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT( \
     //,--------+--------+---------+--------+---------+--------.   ,--------+---------+--------+---------+--------+--------.
         KC_ESC , KC_Q   , KC_W    , KC_E   , KC_R    , KC_T   ,     KC_Y   , KC_U    , KC_I   , KC_O    , KC_P   , KC_MINS,
     //|--------+--------+---------+--------+---------+--------|   |--------+---------+--------+---------+--------+--------|
-        KC_TAB , KC_A   , KC_S    , KC_D   , KC_F    , KC_G   ,     KC_H   , KC_J    , KC_K   , KC_L    , KC_TDCLN, KC_QUOT,
+       KC_C_TAB, KC_A   , KC_S    , KC_D   , KC_F    , KC_G   ,     KC_H   , KC_J    , KC_K   , KC_L    , KC_TDCLN, KC_QUOT,
     //|--------+--------+---------+--------+---------+--------|   |--------+---------+--------+---------+--------+--------|
         KC_LSFT, KC_Z   , KC_X    , KC_C   , KC_V    , KC_B   ,     KC_N   , KC_M    , KC_COMM, KC_DOT  , KC_SLSH, KC_RSFT,
     //`--------+--------+---------+--------+---------+--------/   \--------+---------+--------+---------+--------+--------'
-                          KC_A_DEL, KC_S_JA, KC_L_SPC, KC_DEL ,     KC_BSPC, KC_R_ENT, KC_C_EN, KC_G_DEL
+                          KC_LALT, KC_LSFT , KC_SPC  , KC_DEL ,     KC_BSPC, KC_R_ENT, KC_L_EN, KC_LGUI
     //                 `----------+--------+---------+--------'   `--------+---------+--------+---------'
     ),
 
@@ -75,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
         _______, KC_F11, KC_F12  , _______, _______, _______,     _______, KC_HOME, KC_END,  KC_PGUP, KC_PGDN, RGB_TOG,
     //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
-                          KC_LALT, _______, _______, KC_PREF,     KC_PREF, _______, _______, KC_LGUI
+                          _______, _______, _______, _______,     _______, _______, _______, _______
     //                  `--------+--------+--------+--------'   `--------+--------+--------+--------'
     ),
 
@@ -87,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
         _______, KC_EXLM, KC_AT  , KC_HASH, KC_DLR,  KC_PERC,     KC_CIRC, KC_AMPR, KC_ASTR, _______, _______, RGB_MOD,
     //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
-                          KC_LALT, _______, _______, KC_PREF,     KC_PREF, _______, _______, KC_LGUI
+                          _______, _______, _______, _______,     _______, _______, _______, _______
     //                  `--------+--------+--------+--------'   `--------+--------+--------+--------'
     ),
 };
@@ -108,43 +112,9 @@ void dance_cln_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_ms_finished(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        register_code16(KC_BTN1);
-    } else {
-        register_code(KC_BTN2);
-    }
-}
-
-void dance_ms_reset(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        register_code16(KC_BTN1);
-    } else {
-        register_code(KC_BTN2);
-    }
-}
-
-void dance_acl_finished(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        register_code16(KC_ACL1);
-    } else {
-        register_code(KC_ACL2);
-    }
-}
-
-void dance_acl_reset(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        register_code16(KC_ACL1);
-    } else {
-        register_code(KC_ACL2);
-    }
-}
-
 // タップダンスキーを機能に関連付けます
 qk_tap_dance_action_t tap_dance_actions[] = {
     [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset),
-    [MS_BTN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ms_finished, dance_ms_reset),
-    [MS_ACL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_acl_finished, dance_acl_reset),
 };
 
 #ifdef OLED_DRIVER_ENABLE
@@ -152,16 +122,16 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 void render_layer_state(void) {
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write_ln_P(PSTR("Layer: Default"), false);
+            oled_write_ln_P(PSTR("Query"), false);
             break;
         case _RAISE:
-            oled_write_ln_P(PSTR("Layer: Raise"), false);
+            oled_write_ln_P(PSTR("Raise"), false);
             break;
         case _LOWER:
-            oled_write_ln_P(PSTR("Layer: Lower"), false);
+            oled_write_ln_P(PSTR("Lower"), false);
             break;
         default:
-            oled_write_ln_P(PSTR("Layer: Undefined"), false);
+            oled_write_ln_P(PSTR("Undefined"), false);
     }
 }
 
@@ -170,8 +140,8 @@ void render_logo(void) {
     oled_write_P(logo, false);
 }
 
-char keylog_str[24]  = {};
-char keylogs_str[21] = {};
+char keylog_str[29]  = {};
+char keylogs_str[31] = {};
 int  keylogs_str_idx = 0;
 
 const char code_to_name[60] = {' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
@@ -183,7 +153,7 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
     }
 
     // update keylog
-    snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c", record->event.key.row, record->event.key.col, keycode, name);
+    snprintf(keylog_str, sizeof(keylog_str), "%d x %d\n%2d\nin:%c\n\nhist:", record->event.key.row, record->event.key.col, keycode, name);
 
     // update keylogs
     if (keylogs_str_idx == sizeof(keylogs_str) - 1) {
@@ -219,7 +189,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) return OLED_ROTATION_180;
-    return rotation;
+    return OLED_ROTATION_270;
 }
 
 #endif
