@@ -31,53 +31,53 @@ enum {
 
 // タップダンス用のenum
 enum {
-    CT_CLN,
-    MS_BTN,
-    MS_ACL
+    CT_CLN
 };
 
-#define KC_ KC_TRNS
-#define KC_RST RESET
-#define KC_L_SPC LT(_LOWER, KC_SPC)  // lower
+// #define KC_ KC_TRNS
+// #define KC_RST RESET
+// #define KC_L_SPC LT(_LOWER, KC_SPC)  // lower
 #define KC_R_ENT LT(_RAISE, KC_ENT)  // raise
-#define KC_S_JA LSFT_T(KC_F23)     // shift
-#define KC_C_EN LCTL_T(KC_F24)     // ctrl
+// #define KC_S_JA LSFT_T(KC_F23)     // shift
+// #define KC_C_EN LCTL_T(KC_F24)     // ctrl
 #define KC_L_EN LT(_LOWER, KC_F24) // ctrl
-#define KC_C_JA LCTL_T(KC_F23)     // shift
-#define KC_S_EN LSFT_T(KC_F24)     // ctrl
-#define KC_G_JA LGUI_T(KC_LANG1)     // cmd or win
-#define KC_G_EN LGUI_T(KC_LANG2)     // cmd or win
-#define KC_C_BS LCTL_T(KC_BSPC)      // ctrl
-#define KC_A_DEL ALT_T(KC_DEL)       // alt
-#define KC_G_DEL LGUI_T(KC_DEL)      // alt
-#define KC_TDCLN TD(CT_CLN)          // tap dance
-#define KC_MSBTN TD(MS_BTN)          // tap dance
-#define KC_MSACL TD(MS_ACL)          // tap dance
-#define KC_PREF LCTL(KC_W)          // ctrl w
-#define KC_C_TAB LCTL_T(KC_TAB)     // ctrl
-#define KC_C_SPC LCTL_T(KC_SPC)      // ctrl
+// #define KC_C_JA LCTL_T(KC_F23)     // shift
+// #define KC_S_EN LSFT_T(KC_F24)     // ctrl
+// #define KC_G_JA LGUI_T(KC_LANG1)     // cmd or win
+// #define KC_G_EN LGUI_T(KC_LANG2)     // cmd or win
+// #define KC_C_BS LCTL_T(KC_BSPC)      // ctrl
+// #define KC_A_DEL ALT_T(KC_DEL)       // alt
+// #define KC_G_DEL LGUI_T(KC_DEL)      // alt
+#define KC_TCLN TD(CT_CLN)          // tap dance
+// #define KC_MSBTN TD(MS_BTN)          // tap dance
+// #define KC_MSACL TD(MS_ACL)          // tap dance
+// #define KC_PREF LCTL(KC_W)           // ctrl w
+#define KC_C_TAB LCTL_T(KC_TAB)      // ctrl
+// #define KC_C_BSLS LCTL_T(KC_BSLS)    // ctrl
+// #define KC_C_SPC LCTL_T(KC_SPC)      // ctrl
 #define KC_S_SPC LSFT_T(KC_SPC)      // ctrl
+// #define KC_S_QT LSFT_T(KC_QUOT)      // shift
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT( \
     //,--------+--------+---------+--------+---------+--------.   ,--------+---------+--------+---------+--------+--------.
         KC_ESC , KC_Q   , KC_W    , KC_E   , KC_R    , KC_T   ,     KC_Y   , KC_U    , KC_I   , KC_O    , KC_P   , KC_MINS,
     //|--------+--------+---------+--------+---------+--------|   |--------+---------+--------+---------+--------+--------|
-       KC_C_TAB, KC_A   , KC_S    , KC_D   , KC_F    , KC_G   ,     KC_H   , KC_J    , KC_K   , KC_L    , KC_TDCLN, KC_QUOT,
+       KC_C_TAB, KC_A   , KC_S    , KC_D   , KC_F    , KC_G   ,     KC_H   , KC_J    , KC_K   , KC_L    , KC_TCLN,KC_QUOT,
     //|--------+--------+---------+--------+---------+--------|   |--------+---------+--------+---------+--------+--------|
         KC_LSFT, KC_Z   , KC_X    , KC_C   , KC_V    , KC_B   ,     KC_N   , KC_M    , KC_COMM, KC_DOT  , KC_SLSH, KC_RSFT,
     //`--------+--------+---------+--------+---------+--------/   \--------+---------+--------+---------+--------+--------'
-                          KC_LALT, KC_LSFT , KC_SPC  , KC_DEL ,     KC_BSPC, KC_R_ENT, KC_L_EN, KC_LGUI
+                          KC_LALT , KC_LCTL, KC_S_SPC, KC_DEL ,     KC_BSPC, KC_R_ENT, KC_L_EN, KC_LGUI
     //                 `----------+--------+---------+--------'   `--------+---------+--------+---------'
     ),
 
     [_RAISE] = LAYOUT( \
     //,--------+--------+--------+--------+--------+--------.   ,--------+--------+--------+--------+--------+--------.
-        _______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,     KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, KC_BTN2,
+        _______, _______, KC_LPRN, KC_LCBR, KC_LBRC, KC_GRV ,     KC_TILD, KC_RBRC, KC_RCBR, KC_RPRN, KC_DLR , _______,
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-        _______, KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 ,     KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_GRV , KC_RBRC,
+        _______, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,     KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , _______,
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-        _______, KC_F11, KC_F12  , _______, _______, _______,     _______, KC_HOME, KC_END,  KC_PGUP, KC_PGDN, RGB_TOG,
+        _______, KC_BSLS, KC_UNDS, KC_EQL , KC_PLUS, KC_MINS,     KC_PIPE, KC_AMPR, _______, _______, _______, RGB_MOD,
     //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
                           _______, _______, _______, _______,     _______, _______, _______, _______
     //                  `--------+--------+--------+--------'   `--------+--------+--------+--------'
@@ -85,11 +85,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LOWER] = LAYOUT( \
     //,--------+--------+--------+--------+--------+--------.   ,--------+--------+--------+--------+--------+--------.
-        _______, KC_GRV , KC_TILD, KC_LPRN, KC_LCBR, KC_LBRC,     KC_RBRC, KC_RCBR, KC_RPRN, KC_EQL , KC_PLUS, KC_PIPE,
+        _______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,     KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, KC_BTN2,
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-        KC_BSLS, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,     KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS,
+        _______, KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 ,     KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______, _______,
     //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-        _______, KC_EXLM, KC_AT  , KC_HASH, KC_DLR,  KC_PERC,     KC_CIRC, KC_AMPR, KC_ASTR, _______, _______, RGB_MOD,
+        _______, KC_F11, KC_F12  , _______, KC_HOME, KC_PGUP,     KC_PGDN, KC_END, _______, _______, _______, RGB_TOG,
     //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
                           _______, _______, _______, _______,     _______, _______, _______, _______
     //                  `--------+--------+--------+--------'   `--------+--------+--------+--------'
@@ -144,7 +144,13 @@ char keylog_str[29]  = {};
 char keylogs_str[31] = {};
 int  keylogs_str_idx = 0;
 
-const char code_to_name[60] = {' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
+const char code_to_name[60] = {
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
+    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
 void set_keylog(uint16_t keycode, keyrecord_t *record) {
     char name = ' ';
@@ -153,7 +159,9 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
     }
 
     // update keylog
-    snprintf(keylog_str, sizeof(keylog_str), "%d x %d\n%2d\nin:%c\n\nhist:", record->event.key.row, record->event.key.col, keycode, name);
+    snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
+            record->event.key.row, record->event.key.col,
+            keycode, name);
 
     // update keylogs
     if (keylogs_str_idx == sizeof(keylogs_str) - 1) {
