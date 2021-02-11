@@ -23,13 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 
 // モッドタップの設定
-#define TAPPING_TERM 200
-#define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_TERM 175
+#define PERMISSIVE_HOLD_PER_KEY
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 
 // LEADERキーの設定
 #define LEADER_TIMEOUT 300
-#define LEADER_PER_KEY_TIMING
+// #define LEADER_PER_KEY_TIMING
 
 // #define OLED_FONT_H "keyboards/claw44/lib/glcdfont.c"
 
@@ -43,5 +43,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The LEDs on the slave half go in reverse order
 #define RGBLIGHT_LED_MAP {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10}
 
-#define MOUSEKEY_DELAY 150
-#define MOUSEKEY_INTERVAL 25
+// #define MOUSEKEY_DELAY 150
+// #define MOUSEKEY_INTERVAL 25
