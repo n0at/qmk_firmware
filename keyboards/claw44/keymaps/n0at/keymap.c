@@ -146,21 +146,30 @@ void matrix_scan_user(void) {
             unregister_code(KC_LCTL);
         }
         SEQ_ONE_KEY(KC_TAB) {
-            register_prefix();
+            register_code(KC_LCTL);
             register_code(KC_TAB);
             unregister_code(KC_TAB);
+            unregister_code(KC_LCTL);
+        }
+        SEQ_ONE_KEY(KC_W) {
+            register_prefix();
+        }
+        SEQ_ONE_KEY(KC_B) {
+            register_prefix();
+            register_code(KC_EQL);
+            unregister_code(KC_EQL);
         }
         SEQ_ONE_KEY(KC_R) {
             register_prefix();
             register_code(KC_R);
             unregister_code(KC_R);
         }
-        SEQ_ONE_KEY(KC_V) {
+        SEQ_ONE_KEY(KC_C) {
             register_prefix();
             register_code(KC_V);
             unregister_code(KC_V);
         }
-        SEQ_ONE_KEY(KC_P) {
+        SEQ_ONE_KEY(KC_V) {
             register_prefix();
             register_code(KC_P);
             unregister_code(KC_P);
