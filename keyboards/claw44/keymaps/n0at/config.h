@@ -23,19 +23,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 
 // モッドタップの設定
-#define TAPPING_TERM 175
+#define TAPPING_TERM 190
 #define PERMISSIVE_HOLD_PER_KEY
 #define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 
+// TTのタップ回数
+#define TAPPING_TOGGLE 1
+
 // LEADERキーの設定
 #define LEADER_TIMEOUT 300
-// #define LEADER_PER_KEY_TIMING
+#define LEADER_PER_KEY_TIMING
 
-// #define OLED_FONT_H "keyboards/claw44/lib/glcdfont.c"
+#define OLED_FONT_H "keyboards/claw44/lib/glcdfont.c"
 
 /* WS2812B RGB LED */
 #define RGB_DI_PIN D3
-#define RGBLIGHT_ANIMATIONS
+// #define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #define RGBLED_NUM 20
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 10, 10 }    // Number of LEDs
